@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-# DeXtrusion_for_cell_ingression
-The code is modified from dextrusion paper, I have added a Script part for introducing the velocity field into the movie cropping, and also some code in the jupyter notebook for the training.
-=======
 # ![DeXtrusion](https://gitlab.pasteur.fr/gletort/dextrusion/-/raw/main/images/DeX.png "DeXtrusion") DeXtrusion
 
 DeXtrusion is  a machine learning based python pipeline to detect cell extrusions in epithelial tissues movies. It can also detect cell divisions and SOPs, and can easily be trained to detect other dynamic events. 
