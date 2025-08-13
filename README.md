@@ -271,4 +271,6 @@ DeXtrusion is distributed open-source under the BSD-3 license, see the license f
 
 When you use DeXtrusion source code, neural networks or data for your projects, please cite our paper. 
 
+## Modification from Yuyang
+
 >>>>>>> 38a7c4c (Initial commit without large model files)
