@@ -1,4 +1,4 @@
-# ![DeXtrusion](https://gitlab.pasteur.fr/gletort/dextrusion/-/raw/main/images/DeX.png "DeXtrusion") DeXtrusion
+# ![DeXtrusion](https://github.com/yuyanglai-1221/DeXtrusion_for_cell_ingression/blob/main/images/DeX.png) DeXtrusion
 
 DeXtrusion is  a machine learning based python pipeline to detect cell extrusions in epithelial tissues movies. It can also detect cell divisions and SOPs, and can easily be trained to detect other dynamic events. 
 
@@ -40,7 +40,7 @@ Each window is associated an event probability which allow to generate an events
 The results can be visualized by overlaying the initial movie and all the probability maps saved by DeXtrusion in Fiji with the saved by DeXtrusion with the [`deXtrusion_overlayProbabilityMaps.ijm`](https://gitlab.pasteur.fr/gletort/dextrusion/-/blob/main/ijmacros/deXtrusion_overlayProbabilityMaps.ijm) macro.
 
 <p align="center">
-![Example probability maps](https://gitlab.pasteur.fr/gletort/dextrusion/-/blob/main/images/SequenceProbamaps.png?raw=True "Probability map example") 
+  <img src="https://github.com/yuyanglai-1221/DeXtrusion_for_cell_ingression/blob/main/images/SequenceProbamaps.png?raw=1" alt="Example probability maps">
 </p>
 
 Example of probability maps (green: division, red: extrusion, blue: SOP
@@ -273,6 +273,7 @@ DeXtrusion is distributed open-source under the BSD-3 license, see the license f
 When you use DeXtrusion source code, neural networks or data for your projects, please cite our paper. 
 
 ## Modification and Comments from Yuyang
+The above README is the original version for dextrusion. In this section, I will show you how to create an environment for DeXtrusion on Apple Silicon Mac; the Script floder which used to introduce the velocity field into the movie cropping; I will also explain the notebook that retraining and testing part I used.
 
 ### Installing DeXtrusion on Apple Silicon Mac (CPU version of TensorFlow 2.15)
 1. Create a new environment
@@ -318,4 +319,16 @@ python -m dextrusion
 ```
 ### Script folder
 The script folder here includes two files:
-* [detectEventsOnMovie.ipynb](https://gitlab.pasteur.fr/gletort/dextrusion/-/blob/main/jupyter_notebooks/detectEventsOnMovie.ipynb)
+* [flow_gen.py](https://github.com/yuyanglai-1221/DeXtrusion_for_cell_ingression/blob/main/Script/flow_gen.py) is modified from [MovieGeneratorFromROI.py](https://github.com/yuyanglai-1221/DeXtrusion_for_cell_ingression/blob/main/src/dextrusion/MovieGeneratorFromROI.py), which build a class `FlowFollowingMovieGeneratorFromROI` with function `__init__` for initializing the order of sampling points, `get_roi_img` for getting the moving cropped movies from ROIs and velocity field, and `_sample_velocity_at_global` for calculating the velocity for a given point by bilinear weighted sum of the four surrounding samples.
+* [test_flow_crop.py](https://github.com/yuyanglai-1221/DeXtrusion_for_cell_ingression/blob/main/Script/test_flow_crop.py) can extract the cropped movie with fixed center or flow center from the ROIs. It requires a `PIV_field.mat` which records the coordinates of sampling points `(x,y)`, and their velocity `(u,v)`, and it also needs a `tissuemovie.tif`.
+
+### Yuyang's tips for retraining and testing
+For the retraining:
+* One needs to make a file folder with a `A.tif` and its ROIs with the name `A_cell_death.zip` (for cell ingression), `A_cell_division.zip` (for cell division), `A_sop.zip` (for SOP), and `A_nothing` (for nothing).
+* The retraining code can added nothing case automatically, since the events of cell ingression and cell division are so rare, I did not turn it off.
+* The retraining is based on an original model, and dextrusion paper provides eight: two for [notum_all_original](https://github.com/yuyanglai-1221/DeXtrusion_for_cell_ingression/tree/main/DeXNets/notum_all/notum_all_original), two for [notum_Ext](https://github.com/yuyanglai-1221/DeXtrusion_for_cell_ingression/tree/main/notum_Ext), two for [notum_ExtSOP](https://github.com/yuyanglai-1221/DeXtrusion_for_cell_ingression/tree/main/notum_ExtSOP), and two for [notum_notum_ExtSOPDiv](https://github.com/yuyanglai-1221/DeXtrusion_for_cell_ingression/tree/main/notum_ExtSOPDiv). My retrained models lie in [notum_all_retrain](https://github.com/yuyanglai-1221/DeXtrusion_for_cell_ingression/tree/main/DeXNets/notum_all/notum_all_retrain).
+* I felt sorry that I have mistaken the definition of accuracy with the one in eLife paper: the accuracy in the training means the ratio that the number of right predictions in the validation sets to the total number of it.
+
+For the testing:
+* [deXtrusion_CompareRois.ipynb](https://github.com/yuyanglai-1221/DeXtrusion_for_cell_ingression/blob/main/jupyter_notebooks/deXtrusion_CompareRois.ipynb) can compare two different ROIs and get the precision and recall. I have also added a 4th part in this Jupyter notebook which can use two probability maps to get a mixed one.
+* [deXtrusion_GetRoisFromRawProbaMaps.ipynb](https://github.com/yuyanglai-1221/DeXtrusion_for_cell_ingression/blob/main/jupyter_notebooks/deXtrusion_GetRoisFromRawProbaMaps.ipynb) can generate ROIs from probability maps. I didn't know how to use the second part of the Jupyter notebook so I wrote a third part to do it.
