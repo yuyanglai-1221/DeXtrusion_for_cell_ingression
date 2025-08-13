@@ -1,0 +1,96 @@
+# ================================
+# Git ignore file for DeXtrusion project
+# This prevents large or unnecessary files from being pushed to GitHub
+# ================================
+
+# ----------------
+# Python cache and build artifacts
+# ----------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.so
+*.egg
+*.egg-info/
+build/
+dist/
+
+# ----------------
+# Model and checkpoint files (often very large)
+# ----------------
+*.h5
+*.hdf5
+*.pth
+*.pt
+*.ckpt
+*.tflite
+*.onnx
+*.joblib
+
+# ----------------
+# MATLAB and binary data files
+# ----------------
+*.mat
+*.npy
+*.npz
+*.pkl
+
+# ----------------
+# Image and video output files
+# ----------------
+*.tif
+*.tiff
+*.png
+*.jpg
+*.jpeg
+*.bmp
+*.gif
+*.mp4
+*.avi
+
+# ----------------
+# Compres# macOS system files
+.DS_Store
+
+# Python cache and virtual environments
+__pycache__/
+*.pyc
+*.pyo
+.env
+.venv
+*.egg-info/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Build and temporary files
+build/
+dist/
+
+# Large data and model files
+*.tif
+*.tiff
+*.zip
+*.h5
+*.pb
+*.onnx
+*.npz
+*.npy
+
+# DeXtrusion results folder
+results/
+
+# Logs
+logs/
+*.log
+
+# IDE configuration files
+.vscode/
+.idea/
+
+
+# Ignore pretrained models and large artifacts
+DeXNets/
+*.pdf
+*.data
+*.index
