@@ -273,5 +273,33 @@ DeXtrusion is distributed open-source under the BSD-3 license, see the license f
 When you use DeXtrusion source code, neural networks or data for your projects, please cite our paper. 
 
 ## Modification and Comments from Yuyang
+Installing DeXtrusion on Apple Silicon Mac (CPU version of TensorFlow 2.15)
+1. Create a new environment
+conda create -n dextrusion-mac311 python=3.11 -y
+conda activate dextrusion-mac311
+2. Install TensorFlow (CPU version) and core dependencies
+pip install -U pip setuptools wheel
+conda install -y -c conda-forge "tensorflow=2.15.*" "tensorflow-estimator=2.15.*" "tensorboard=2.15.*" "numpy>=1.26,<2"
+3. Install scientific computing and image processing dependencies required by DeXtrusion
+pip install "scikit-image==0.21.*" "tifffile>=2023.8" "pillow<11" \
+            "opencv-python==4.8.1.78" "matplotlib<3.8" "roifile==2021.6.6" \
+            "scikit-learn==1.4.*" ipython
+4. Install DeXtrusion (skip old TF dependencies)
+pip install "dextrusion==0.0.7" --no-deps
+5. Verify installation
+python - <<'PY'
+import tensorflow as tf, numpy as np, dextrusion
+print("TF:", tf.__version__)
+print("NumPy:", np.__version__)
+print("GPUs:", tf.config.list_physical_devices('GPU'))
+print("dextrusion OK")
+PY
+Expected output:
+TF: 2.15.x
+NumPy: 1.26.x
+GPUs: []
+dextrusion OK
+6. Launch the DeXtrusion GUI
+python -m dextrusion
 
 >>>>>>> 38a7c4c (Initial commit without large model files)
