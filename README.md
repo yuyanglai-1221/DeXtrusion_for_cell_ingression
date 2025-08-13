@@ -13,6 +13,7 @@ This repository contains the code source of the python DeXtrusion library, the t
 * [Fiji macros](#fiji-macros)
 * [Jupyter notebooks](#jupyter-notebooks)
 * [References](#references)
+* [Modification and Comments from Yuyang](#modification-and-comments-from-yuyang)
 
 ## Presentation
 DeXtrusion takes as input a movie of an epithelium and outputs the **spatio-temporal location of cell extrusion events** or other event as cell divisions. 
@@ -271,6 +272,6 @@ DeXtrusion is distributed open-source under the BSD-3 license, see the license f
 
 When you use DeXtrusion source code, neural networks or data for your projects, please cite our paper. 
 
-## Modification from Yuyang
+## Modification and Comments from Yuyang
 
 >>>>>>> 38a7c4c (Initial commit without large model files)
