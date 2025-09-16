@@ -61,6 +61,7 @@ class MovieGeneratorFromROI(Sequence):
                  add_nothing_windows = 10,
                  tmp_directory_path = None,
                  verbose = True,
+                 nothing_factor = 1.2,
                  **kwargs):
 
         self.data_path= data_path
@@ -82,9 +83,9 @@ class MovieGeneratorFromROI(Sequence):
         self.ncat = ncat
         self.augment = naug
         self.augment_noise = augment_withnoise
-        self.nothing = 1.2  ## slight shift, nothing more present
+        self.nothing = float(nothing_factor)  ## slight shift, nothing more present
         self.add_nothing = add_nothing_windows ## Read _nothing.zip ROI file to reinforce no event windows (FP otherwise) and augment it XX times
-        self.balance = True
+        self.balance = bool(balance) 
         self.trainindex = []
         self.valindex = []
         self.verbose = verbose
@@ -171,8 +172,8 @@ class MovieGeneratorFromROI(Sequence):
                 roifilename = basename+self.catnames[cat]
                 if os.path.isfile(roifilename):
                     rois =  read_rois(roifilename)
-                    if nrois[cat]<0.75*max(nrois) and self.balance:
-                        nrois[cat] = 0.85*max(nrois)
+                    if nrois[cat]<0.1*max(nrois) and self.balance:
+                        nrois[cat] = 0.1*max(nrois)
                     num = self.add_and_augment_rois(rois, nrois, cat, num, img, purename)
 
             ### Get "Nothing" rois
@@ -321,7 +322,7 @@ class MovieGeneratorFromROI(Sequence):
             _validation = True,
             _cat = [self.catlist[i] for i in self.valindex],
             _files = [self.filelist[i] for i in self.valindex],
-            _donoise = [self.donoise[i] for i in self.donoise]
+            _donoise = [self.donoise[i] for i in self.valindex]
         )         
                 
                 

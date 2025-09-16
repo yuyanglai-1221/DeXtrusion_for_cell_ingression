@@ -129,10 +129,10 @@ def load_velocity_and_centers_from_mat(mat_path,
 # ======== Paths ========
 data_path = "/Users/yuyangsmacbook/project/dextrusion-main/Script"  # folder containing movie.tif & zip
 movie_tif = os.path.join(data_path, "049_100.tif")
-roi_zip   = os.path.join(data_path, "_nothing.zip")   # change to other category zip if needed
+roi_zip   = os.path.join(data_path, "_cell_death.zip")   # change to other category zip if needed
 mat_path  = "/Users/yuyangsmacbook/project/dextrusion-main/Script/PIV_049_100.mat"  # your .mat
 
-frame_shape = (5,5)
+frame_shape = (10,10)
 win_halfsize = (25,25)   # spatial half-window
 vel_scale = 1.0          # if u/v are already in pixel/frame, keep 1.0
 
@@ -146,8 +146,8 @@ print("velocity shape:", velocity.shape, "centers shape:", centers.shape)
 print("num rois:", len(rois))
 
 # ======== Output folders ========
-fixed_dir = os.path.join(data_path, "fixed_crops3")
-flow_dir  = os.path.join(data_path, "flow_crops3")
+fixed_dir = os.path.join(data_path, "fixed_crops4")
+flow_dir  = os.path.join(data_path, "flow_crops4")
 os.makedirs(fixed_dir, exist_ok=True)
 os.makedirs(flow_dir,  exist_ok=True)
 
